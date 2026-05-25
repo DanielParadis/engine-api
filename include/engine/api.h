@@ -7,13 +7,13 @@
 #endif
 #include "keyboard.h"
 #include "mouse.h"
-#include "vec3.h"
+#include "vec2.h"
 #include <stdarg.h>
 
 typedef void (*EngineLogFunc)(const char *fmt, va_list ap);
 
 #ifndef MAX_ENTITIES
-#define MAX_ENTITIES 8192
+#define MAX_ENTITIES 65535
 #endif
 
 typedef struct Engine Engine;
@@ -52,7 +52,7 @@ typedef struct EngineAPI {
     void (*kill)(Engine *, int);
     struct {
       int* (*type)(Engine*, int);
-      Vec3* (*pos)(Engine *, int);
+      Vec2* (*pos)(Engine *, int);
     }get;
   } entity;
   float (*const dt)(Engine *);
@@ -68,7 +68,7 @@ typedef struct EngineAPI {
 
 #define GAME_ENTRY(X)                                                          \
   GAME_EXPORT int _ENGINE_INIT_GAME(EngineAPI *api) {                          \
-    if (!api->reportEntityCount(api, MAX_ENTITIES))                            \
+    if (!api->reportEntityCount(api->engine, MAX_ENTITIES))                            \
       return 0;                                                                \
     X(api);                                                                    \
     return 1;                                                                  \

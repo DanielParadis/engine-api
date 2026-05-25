@@ -51,7 +51,7 @@ static inline void v2Divb(Vec2 *restrict result, const Vec2 *restrict a,
 }
 
 static inline float v2Dot(const Vec2 *restrict a, const Vec2 *restrict b) {
-  return a->x * b->x + a->y * b->y
+  return a->x * b->x + a->y * b->y;
 }
 
 static inline float v2Dist2(const Vec2 *restrict a, const Vec2 *restrict b) {
